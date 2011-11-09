@@ -53,6 +53,29 @@ VALUE X11Client_get_window(VALUE self, VALUE window_id) {
   return result;
 }
 
+VALUE X11Client_window_children_ids(VALUE self, VALUE window_id) {
+  Window window = NUM2LONG(window_id);
+  Window dummy;
+  Window *children;
+  unsigned int i, nchildren;
+
+  X11Client *client;
+  Data_Get_Struct(self, X11Client, client);
+
+  XSetErrorHandler(X11Client_IgnoreBadWindowHandler);
+
+  VALUE children_ids = rb_ary_new();
+  if (XQueryTree(client->display, window, &dummy, &dummy, &children, &nchildren)) {
+    for (i = 0; i < nchildren; i++) {
+      Window child_id = children[i];
+      rb_funcall(children_ids, rb_intern("push"), 1, LONG2FIX(child_id));
+    }
+  }
+
+  XSetErrorHandler(NULL);
+  return children_ids;
+}
+
 VALUE X11Client_window_state(XWindowAttributes attributes) {
   VALUE state = Qnil;
   switch(attributes.map_state) {
