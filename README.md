@@ -25,6 +25,7 @@ It can be handy if you want to controll some programs running in Xvfb.
 * X11Client#root_window_id - returns root window id in decimal.
 * X11Client#root_window - returns root window attributes hash.
 * X11Client#get_window(window_id) - returns window attributes hash or nil for given window_id.
+* X11Client#get_window(window_id) - returns window name for given window_id.
 * X11Client#mousemove(x,y) - move mouse pointer to (x,y) coordinates.
 * X11Client#mousedown(button) - down mouse buton
 * X11Client#mouseup(buton) - up mouse button
