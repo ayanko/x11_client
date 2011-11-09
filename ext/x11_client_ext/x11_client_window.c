@@ -4,6 +4,13 @@
 
 #include "X11/Xutil.h"
 
+VALUE X11Client_root_window_id(VALUE self) {
+  X11Client *client;
+  Data_Get_Struct(self, X11Client, client);
+
+  return LONG2FIX(DefaultRootWindow(client->display));
+}
+
 VALUE X11Client_get_window(VALUE self, VALUE window_id) {
   VALUE result = Qnil;
 

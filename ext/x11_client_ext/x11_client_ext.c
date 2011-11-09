@@ -25,6 +25,7 @@ void Init_x11_client_ext() {
   rb_define_method(cX11Client, "start", X11Client_start, 0);
   rb_define_method(cX11Client, "stop", X11Client_stop, 0);
 
+  rb_define_method(cX11Client, "root_window_id", X11Client_root_window_id, 0);
   rb_define_method(cX11Client, "get_window", X11Client_get_window, 1);
 
   rb_define_method(cX11Client, "mousemove", X11Client_mousemove, 2);
