@@ -4,8 +4,6 @@
 
 #include "x11_client_utils.h"
 
-static VALUE eX11ClientError = Qnil;
-
 VALUE X11Client_open_display(VALUE self) {
   X11Client *client;
   Data_Get_Struct(self, X11Client, client);

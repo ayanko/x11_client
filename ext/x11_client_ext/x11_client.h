@@ -9,4 +9,8 @@ typedef struct {
   int loop;
 } X11Client;
 
+VALUE eX11ClientError;
+
+VALUE cX11Client;
+
 #endif

@@ -6,10 +6,6 @@
 #include "x11_client_mouse.h"
 #include "x11_client_window.h"
 
-static VALUE eX11ClientError = Qnil;
-
-static VALUE cX11Client = Qnil;
-
 void Init_x11_client_ext() {
   eX11ClientError = rb_define_class("X11ClientError", rb_eStandardError);
 
