@@ -4,6 +4,7 @@
 #include "x11_client_display.h"
 #include "x11_client_event.h"
 #include "x11_client_mouse.h"
+#include "x11_client_key.h"
 #include "x11_client_window.h"
 
 void Init_x11_client_ext() {
@@ -30,4 +31,8 @@ void Init_x11_client_ext() {
   rb_define_method(cX11Client, "mousedown", X11Client_mousedown, 1);
   rb_define_method(cX11Client, "mouseup", X11Client_mouseup, 1);
   rb_define_method(cX11Client, "mouseclick", X11Client_mouseclick, 1);
+
+  rb_define_method(cX11Client, "keydown", X11Client_keydown, 1);
+  rb_define_method(cX11Client, "keyup", X11Client_keyup, 1);
+  rb_define_method(cX11Client, "keypress", X11Client_keypress, 1);
 }

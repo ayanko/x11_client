@@ -1,4 +1,5 @@
 require "x11_client_ext"
+require "keysyms"
 
 class X11Client
   def window_children(window_id)

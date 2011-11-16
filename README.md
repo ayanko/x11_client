@@ -30,14 +30,40 @@ It can be handy if you want to controll some programs running in Xvfb.
 * X11Client#mousedown(button) - down mouse buton
 * X11Client#mouseup(buton) - up mouse button
 * X11Client#mouseclick(button) - mousedown and mouseup
+* X11Client#keydown(key) - down key
+* X11Client#keyup(key) - up key
+* X11Client#keypress(key) - keydown then keyup
 
 ## Mouse buttons
-
 * 1 - left
 * 2 - right
 * 3 - middle
 * 4 - wheel up
 * 5 - wheel down
+
+## Keys
+
+Way too many to list here.
+Some examples :
+
+* XK_Return
+* XK_Escape
+* XK_Left
+* XK_Up
+* XK_Page_Up
+* XK_F1
+* XK_Shift_L
+* XK_Control_R
+* XK_Meta_L
+* XK_Alt_R
+* XK_Super_L
+* XK_Hyper_R
+* XK_space
+* XK_A
+* XK_z
+* ...
+
+See /usr/include/X11/keysymdef.h for a complete list.
 
 ## X11 Window attributes
 
