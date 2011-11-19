@@ -161,3 +161,4 @@ Supported events:
 ## References
 
 * [The Xlib Programming Manual](http://tronche.com/gui/x/xlib/)
+* [x11_client rubydocs](http://rubydoc.info/github/ayanko/x11_client/master/file/README.md)
