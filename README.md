@@ -30,21 +30,19 @@ It can be handy if you want to controll some programs running in Xvfb.
 * X11Client#mousedown(button) - down mouse buton
 * X11Client#mouseup(buton) - up mouse button
 * X11Client#mouseclick(button) - mousedown and mouseup
-* X11Client#keydown(key) - down key
-* X11Client#keyup(key) - up key
-* X11Client#keypress(key) - keydown then keyup
+* X11Client#keydown(key) - press a key
+* X11Client#keyup(key) - release a key
+* X11Client#key(key) - press and release a key
 
 ## Mouse buttons
+
 * 1 - left
 * 2 - right
 * 3 - middle
 * 4 - wheel up
 * 5 - wheel down
 
-## Keys
-
-Way too many to list here.
-Some examples :
+## Key names
 
 * XK_Return
 * XK_Escape
@@ -63,7 +61,9 @@ Some examples :
 * XK_z
 * ...
 
-See /usr/include/X11/keysymdef.h for a complete list.
+See [X11 keysym list](https://github.com/ayanko/x11_client/tree/master/lib/x11_client/keysym.rb)
+
+Keysym list is generated from `/usr/include/X11` sources with `rake update_keysym`
 
 ## X11 Window attributes
 
