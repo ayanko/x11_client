@@ -2,19 +2,21 @@
 #include "x11_client_event.h"
 
 VALUE X11Client_start(VALUE self) {
+  X11Client *client;
+  VALUE event;
+  XEvent any_event;
+
   rb_need_block();
 
-  X11Client *client;
   Data_Get_Struct(self, X11Client, client);
   client->loop = True;
 
   XSelectInput(client->display, DefaultRootWindow(client->display), SubstructureNotifyMask);
 
-  XEvent any_event;
   while ( client->loop ) {
     XNextEvent(client->display, &any_event);
 
-    VALUE event = X11Client_get_event(any_event);
+    event = X11Client_get_event(any_event);
 
     if(event && event != Qnil) {
       rb_yield(event);
@@ -33,13 +35,18 @@ VALUE X11Client_stop(VALUE self) {
 }
 
 VALUE X11Client_get_event(XEvent any_event) {
+  XCreateWindowEvent *create_event;
+  XDestroyWindowEvent *destroy_event;
+  XMapEvent *map_event;
+  XUnmapEvent *unmap_event;
+  XVisibilityEvent *visibility_event;
   VALUE result = Qnil;
 
   switch(any_event.type) {
 
     case CreateNotify:
       ;
-      XCreateWindowEvent *create_event = (XCreateWindowEvent *)&any_event;
+      create_event = (XCreateWindowEvent *)&any_event;
 
       result = rb_hash_new();
       rb_funcall(result, rb_intern("[]="), 2, rb_str_new2("type"), rb_str_new2("CreateWindowEvent"));
@@ -54,7 +61,7 @@ VALUE X11Client_get_event(XEvent any_event) {
 
     case DestroyNotify:
       ;
-      XDestroyWindowEvent *destroy_event = (XDestroyWindowEvent *)&any_event;
+      destroy_event = (XDestroyWindowEvent *)&any_event;
 
       result = rb_hash_new();
       rb_funcall(result, rb_intern("[]="), 2, rb_str_new2("type"), rb_str_new2("DestroyWindowEvent"));
@@ -63,7 +70,7 @@ VALUE X11Client_get_event(XEvent any_event) {
 
     case MapNotify:
       ;
-      XMapEvent *map_event = (XMapEvent *)&any_event;
+      map_event = (XMapEvent *)&any_event;
 
       result = rb_hash_new();
       rb_funcall(result, rb_intern("[]="), 2, rb_str_new2("type"), rb_str_new2("MapEvent"));
@@ -72,7 +79,7 @@ VALUE X11Client_get_event(XEvent any_event) {
 
     case UnmapNotify:
       ;
-      XUnmapEvent *unmap_event = (XUnmapEvent *)&any_event;
+      unmap_event = (XUnmapEvent *)&any_event;
 
       result = rb_hash_new();
       rb_funcall(result, rb_intern("[]="), 2, rb_str_new2("type"), rb_str_new2("UnmapEvent"));
@@ -81,7 +88,7 @@ VALUE X11Client_get_event(XEvent any_event) {
 
     case VisibilityNotify:
       ;
-      XVisibilityEvent *visibility_event = (XVisibilityEvent *)&any_event;
+      visibility_event = (XVisibilityEvent *)&any_event;
 
       result = rb_hash_new();
       rb_funcall(result, rb_intern("[]="), 2, rb_str_new2("type"), rb_str_new2("VisibilityEvent"));

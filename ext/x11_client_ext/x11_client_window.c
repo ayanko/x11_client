@@ -12,14 +12,15 @@ VALUE X11Client_root_window_id(VALUE self) {
 }
 
 VALUE X11Client_get_window(VALUE self, VALUE window_id) {
+  Window window;
+  XWindowAttributes attributes;
+  XClassHint classhint;
   VALUE result = Qnil;
 
   X11Client *client;
   Data_Get_Struct(self, X11Client, client);
 
-  Window window = NUM2LONG(window_id);
-  XWindowAttributes attributes;
-  XClassHint classhint;
+  window = NUM2LONG(window_id);
   
   XSetErrorHandler(X11Client_IgnoreBadWindowHandler);
 
@@ -50,14 +51,16 @@ VALUE X11Client_get_window(VALUE self, VALUE window_id) {
 }
 
 VALUE X11Client_get_window_name(VALUE self, VALUE window_id) {
+  X11Client *client;
+  Window window;
+  XTextProperty wmName;
+  char* window_name;
   VALUE result = Qnil;
 
-  X11Client *client;
   Data_Get_Struct(self, X11Client, client);
 
-  Window window = NUM2LONG(window_id);
-  char* window_name = '\0';
-  XTextProperty wmName;
+  window = NUM2LONG(window_id);
+  window_name = '\0';
 
   if (XFetchName(client->display, window, &window_name)) {
     result = rb_str_new2(window_name);
@@ -81,6 +84,7 @@ VALUE X11Client_window_children_ids(VALUE self, VALUE window_id) {
   Window window = NUM2LONG(window_id);
   Window dummy;
   Window *children = NULL;
+  VALUE children_ids;
   unsigned int i, nchildren;
 
   X11Client *client;
@@ -88,7 +92,7 @@ VALUE X11Client_window_children_ids(VALUE self, VALUE window_id) {
 
   XSetErrorHandler(X11Client_IgnoreBadWindowHandler);
 
-  VALUE children_ids = rb_ary_new();
+  children_ids = rb_ary_new();
   if (XQueryTree(client->display, window, &dummy, &dummy, &children, &nchildren)) {
     for (i = 0; i < nchildren; i++) {
       Window child_id = children[i];

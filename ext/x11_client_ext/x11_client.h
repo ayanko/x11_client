@@ -2,6 +2,7 @@
 #define X11_CLIENT_H
 
 #include "ruby.h"
+#include <ruby18_compat.h>
 #include <X11/Xlib.h>
 
 typedef struct {

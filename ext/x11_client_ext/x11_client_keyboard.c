@@ -25,7 +25,7 @@ VALUE X11Client_keyaction(VALUE self, VALUE keysym, VALUE action) {
 
   keycode = XKeysymToKeycode(client->display, FIX2INT(keysym));
   if (keycode == 0)
-    rb_raise(rb_eArgError, "Can't convert %s to keycode", FIX2INT(keysym));
+    rb_raise(rb_eArgError, "Can't convert %x to keycode", FIX2INT(keysym));
 
   is_press = action == Qtrue ? True : False;
   XTestFakeKeyEvent(client->display, keycode, is_press, CurrentTime);
